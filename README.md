@@ -1,73 +1,73 @@
-# React + TypeScript + Vite
+# Look Request Prototype
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript single-page prototype for creating WeGoLook internal look requests. The app demonstrates role-based UI controls, a dynamic look request form, and modern component styling using SCSS and Material UI.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Topbar role switcher built with Material UI `Select` and custom styling
+- Internal user workflow with a fully validated look request form
+- Dynamic sections for scheduling, deliverables, and internal routing
+- Submission preview panel that mirrors form state for quick review
+- Responsive layout with semantic markup and ARIA hints for accessibility
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js 18+
+- `npm` 8+
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Install & Run
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The Vite dev server launches on `http://localhost:5173` by default.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Available Scripts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- `npm run dev` – start the Vite development server with HMR
+- `npm run build` – type-check with `tsc` and build the production bundle
+- `npm run preview` – preview the production build locally
+- `npm run lint` – run ESLint across the project
+
+## Project Structure
+
+```text
+src/
+├── App.tsx              # Root layout that wires the topbar and form
+├── App.scss             # Global shell styling
+├── components/
+│   ├── topbar/          # Role switcher and header display
+│   │   ├── topbar.tsx
+│   │   ├── topbar.scss
+│   │   └── components/basic_select/
+│   │       ├── basic_select.tsx
+│   │       └── basic_select.scss
+│   └── order_form/      # Internal look request form
+│       ├── order_form.tsx
+│       └── order_form.scss
+├── index.scss           # Base styles and CSS variables
+└── main.tsx             # Application bootstrap
 ```
+
+## Implementation Notes
+
+- React 19 with the modern compiler-ready JSX runtime
+- Material UI components for accessible select controls
+- TypeScript types for form data and option lists ensure type safety
+- SCSS modules for component-scoped styling with shared variables in `src/scss_variables/`
+- Form state managed with React hooks (`useState`, `useMemo`, `useCallback`, `useEffect`)
+
+## Next Steps
+
+- Extend role support to external and partner flows
+- Add data persistence (e.g., API integration or local storage)
+- Layer in automated tests with Vitest and React Testing Library
+- Incorporate field-level validation messaging
+
+## License
+
+This project is for interview preparation and internal demos. No license has been assigned.
