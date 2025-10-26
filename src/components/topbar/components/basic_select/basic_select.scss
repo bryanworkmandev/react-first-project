@@ -1,0 +1,41 @@
+.basic-select-container {
+    width: 10rem;
+    margin-right: 1rem;
+
+    &-form-control {
+        width: 100%;
+        .MuiInputLabel-root {
+            color: #fff;
+
+            &.Mui-focused {
+                color: #fff;
+            }
+        }
+
+        .MuiOutlinedInput-root {
+            & fieldset {
+                border-color: rgba(255, 255, 255, 0.6);
+            }
+
+            &:hover fieldset {
+                border-color: #fff;
+            }
+
+            &.Mui-focused fieldset {
+                border-color: #fff;
+            }
+
+            .MuiSelect-select {
+                color: #fff;
+            }
+
+            svg {
+                color: #fff;
+            }
+        }
+    }
+
+    &-label {
+        color: #fff;
+    }
+}
