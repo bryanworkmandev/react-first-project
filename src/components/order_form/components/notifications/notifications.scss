@@ -1,0 +1,27 @@
+.notification-details {
+  padding: 1rem 0;
+  
+  &__section {
+    margin-bottom: 1.5rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    h3 {
+      margin: 0 0 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    p {
+      margin: 0;
+      font-size: 1rem;
+      color: #0f172a;
+      line-height: 1.5;
+    }
+  }
+}

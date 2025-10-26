@@ -1,0 +1,202 @@
+.order-form {
+  padding: 2rem 1rem 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(244, 246, 249, 0.9), #ffffff);
+
+  &__card {
+    width: min(960px, 100%);
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  &__description {
+    margin: 0;
+    color: #334155;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__fieldset {
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: rgba(248, 250, 252, 0.6);
+  }
+
+  &__legend {
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 1.05rem;
+  }
+
+  &__fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+
+  &__fields--address {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &--span {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background-color: #edf2f7;
+    font-weight: 500;
+    color: #0f172a;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+      border-color: #2563eb;
+      background-color: rgba(37, 99, 235, 0.08);
+    }
+
+    // Style for disabled checkboxes (external users)
+    &--disabled {
+      background-color: #f1f5f9;
+      color: #64748b;
+      cursor: not-allowed;
+      
+      &:hover {
+        border-color: transparent;
+        background-color: #f1f5f9;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: flex-end;
+  }
+
+  &__button {
+    border-radius: 999px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 25px rgba(37, 99, 235, 0.25);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+    }
+
+    &--secondary {
+      background: transparent;
+      color: #1d4ed8;
+      border: 1px solid rgba(37, 99, 235, 0.4);
+    }
+  }
+
+  &__summary {
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+    padding-top: 1.5rem;
+  }
+
+  &__summary-title {
+    margin: 0 0 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: green;
+  }
+
+  // Styles for readonly/disabled fields
+  .MuiTextField-root {
+    .MuiInputBase-root.Mui-disabled {
+      background-color: #f8fafc;
+      color: #64748b;
+      
+      .MuiInputBase-input {
+        color: #64748b;
+      }
+      
+      .MuiOutlinedInput-notchedOutline {
+        border-color: #e2e8f0;
+      }
+    }
+  }
+
+  .MuiCheckbox-root.Mui-disabled {
+    color: #cbd5e1;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 0.75rem 2.5rem;
+
+    &__card {
+      padding: 1.75rem 1.25rem;
+    }
+
+    &__fields {
+      grid-template-columns: 1fr;
+    }
+
+    &__checkboxes {
+      grid-template-columns: 1fr;
+    }
+
+    &__actions {
+      justify-content: center;
+    }
+  }
+}

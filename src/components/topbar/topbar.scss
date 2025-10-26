@@ -7,7 +7,7 @@
     border-bottom: 1px solid $secondary-bg;
     display: flex;
     align-items: center;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 0;
 
     &__left,
     &__center,
@@ -19,6 +19,7 @@
 
     &__left {
         justify-content: flex-start;
+        padding-left: 1rem;
     }
 
     &__center {
@@ -30,5 +31,32 @@
 
     &__right {
         justify-content: flex-end;
+        gap: 0.5rem;
+        padding-right: 1rem;
+    }
+
+    &__github {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: $background-color;
+        transition: transform 150ms ease, color 150ms ease;
+
+        svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            fill: currentColor;
+        }
+
+        &:hover,
+        &:focus-visible {
+            color: $crawford-blue-3;
+            transform: translateY(-1px);
+        }
+
+        &:focus-visible {
+            outline: 2px solid $background-color;
+            outline-offset: 2px;
+        }
     }
 }

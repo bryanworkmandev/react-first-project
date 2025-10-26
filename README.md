@@ -1,14 +1,16 @@
-# Look Request Prototype
+# Service Request System
 
-A React + TypeScript single-page prototype for creating WeGoLook internal look requests. The app demonstrates role-based UI controls, a dynamic look request form, and modern component styling using SCSS and Material UI.
+A React + TypeScript real-time service request application that enables communication between internal and external users. The app features role-based form editing, real-time notifications via Ably, and a complete workflow for service request management with modern component styling using SCSS and Material UI.
 
 ## Features
 
-- Topbar role switcher built with Material UI `Select` and custom styling
-- Internal user workflow with a fully validated look request form
-- Dynamic sections for scheduling, deliverables, and internal routing
-- Submission preview panel that mirrors form state for quick review
-- Responsive layout with semantic markup and ARIA hints for accessibility
+- **Real-time Communication**: Live notifications between internal and external users via Ably
+- **Role-based Form Editing**: Different form capabilities based on user role (internal vs external)
+- **Service Request Workflow**: Complete workflow from request creation to completion
+- **Real-time Notifications**: Material-UI Snackbar notifications with detailed request information
+- **Dynamic Form Sections**: Scheduling, deliverables, notes, and contact information
+- **Form Pre-population**: Notifications can load existing data into the form for editing
+- **Responsive Design**: Mobile-friendly layout with semantic markup and accessibility features
 
 ## Getting Started
 
@@ -37,36 +39,91 @@ The Vite dev server launches on `http://localhost:5173` by default.
 
 ```text
 src/
-├── App.tsx              # Root layout that wires the topbar and form
+├── App.tsx              # Root layout with AblyProvider and role management
 ├── App.scss             # Global shell styling
+├── ably.ts              # Ably configuration and real-time setup
 ├── components/
 │   ├── topbar/          # Role switcher and header display
 │   │   ├── topbar.tsx
 │   │   ├── topbar.scss
+│   │   ├── role_options.ts
 │   │   └── components/basic_select/
 │   │       ├── basic_select.tsx
 │   │       └── basic_select.scss
-│   └── order_form/      # Internal look request form
+│   └── order_form/      # Service request form system
 │       ├── order_form.tsx
-│       └── order_form.scss
+│       ├── order_form.scss
+│       ├── constants/
+│       │   └── constants.ts    # Form data types and options
+│       ├── services/
+│       │   └── ablyService.ts  # Ably real-time communication service
+│       └── components/
+│           ├── notifications/
+│           │   ├── notifications.tsx
+│           │   └── notifications.scss
+│           ├── service_request_form/
+│           │   ├── service_request_form.tsx
+│           │   └── service_request_form.scss
+│           └── deliverables_and_notes/
+│               └── deliverables_and_notes.tsx
+├── scss_variables/
+│   └── variables.scss   # Shared SCSS variables
 ├── index.scss           # Base styles and CSS variables
 └── main.tsx             # Application bootstrap
 ```
 
+## Real-time Communication Setup
+
+This application uses Ably for real-time communication between internal and external users. The system enables live notifications and form data synchronization.
+
+### How It Works
+
+1. **Internal User** fills out and submits a service request form
+2. **External User** receives a real-time notification about the new request
+3. **External User** can click the notification to open the form with pre-populated data
+4. **External User** completes the work by filling out deliverables & notes and submitting
+5. **Internal User** receives a real-time notification that the service request is completed
+
+### Testing the System
+
+1. Open the application in two browser windows/tabs
+2. Set one window to "Internal User" and the other to "External User"
+3. In the Internal User window, fill out and submit the service request form
+4. Check the External User window - you should see a notification appear
+5. Click "Open Form" in the notification to see the pre-populated form
+6. Complete the deliverable checkboxes and add notes in the External User window
+7. Submit the form as the External User
+8. Check the Internal User window - you should see a completion notification
+
+For detailed Ably setup information, see [ABLY_SETUP.md](./ABLY_SETUP.md).
+
 ## Implementation Notes
 
 - React 19 with the modern compiler-ready JSX runtime
-- Material UI components for accessible select controls
-- TypeScript types for form data and option lists ensure type safety
+- Ably real-time messaging for live notifications and data synchronization
+- Material UI components for accessible select controls and notifications
+- TypeScript types for form data, Ably messages, and option lists ensure type safety
 - SCSS modules for component-scoped styling with shared variables in `src/scss_variables/`
 - Form state managed with React hooks (`useState`, `useMemo`, `useCallback`, `useEffect`)
+- Role-based form editing with different capabilities for internal vs external users
+
+## Dependencies
+
+- **React 19** - Modern React with compiler-ready JSX runtime
+- **TypeScript** - Type safety and enhanced developer experience
+- **Vite** - Fast build tool and development server
+- **Material UI** - Accessible UI components and theming
+- **Ably** - Real-time messaging and communication
+- **SCSS** - Enhanced CSS with variables and nesting
 
 ## Next Steps
 
-- Extend role support to external and partner flows
 - Add data persistence (e.g., API integration or local storage)
+- Implement user authentication and authorization
 - Layer in automated tests with Vitest and React Testing Library
-- Incorporate field-level validation messaging
+- Add request history and tracking features
+- Implement file uploads for deliverables
+- Add email notifications as a fallback
 
 ## License
 
