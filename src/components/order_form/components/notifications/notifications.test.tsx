@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import Notifications from './notifications'
 
@@ -51,7 +51,6 @@ describe('Notifications', () => {
   })
 
   it('calls onNotificationClick when notification is clicked', () => {
-    const testData = { id: '123', requestTitle: 'Test Request' }
     render(<Notifications role="external" onNotificationClick={mockOnNotificationClick} />)
     
     // This would be triggered by clicking a notification

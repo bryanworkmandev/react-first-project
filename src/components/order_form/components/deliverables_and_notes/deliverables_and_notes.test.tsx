@@ -4,11 +4,12 @@ import userEvent from '@testing-library/user-event'
 import DeliverablesAndNotes from './deliverables_and_notes'
 
 describe('DeliverablesAndNotes', () => {
-  const user = userEvent.setup()
+  let user: ReturnType<typeof userEvent.setup>
   const mockOnFormDataChange = vi.fn()
 
   beforeEach(() => {
     vi.clearAllMocks()
+    user = userEvent.setup()
   })
 
   it('renders deliverables checkboxes and notes textarea', () => {

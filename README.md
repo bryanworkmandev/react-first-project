@@ -34,6 +34,9 @@ The Vite dev server launches on `http://localhost:5173` by default.
 - `npm run build` – type-check with `tsc` and build the production bundle
 - `npm run preview` – preview the production build locally
 - `npm run lint` – run ESLint across the project
+- `npm test` – run tests with Vitest
+- `npm run test:ui` – run tests with Vitest UI
+- `npm run test:run` – run tests once (CI mode)
 
 ## Project Structure
 
@@ -68,6 +71,11 @@ src/
 │               └── deliverables_and_notes.tsx
 ├── scss_variables/
 │   └── variables.scss   # Shared SCSS variables
+├── test/
+│   ├── setup.ts         # Test environment setup
+│   └── test-utils.tsx   # Custom test utilities
+├── services/
+│   └── ablyService.ts   # Ably real-time communication service
 ├── index.scss           # Base styles and CSS variables
 └── main.tsx             # Application bootstrap
 ```
@@ -97,6 +105,29 @@ This application uses Ably for real-time communication between internal and exte
 
 For detailed Ably setup information, see [ABLY_SETUP.md](./ABLY_SETUP.md).
 
+## Testing
+
+The project includes comprehensive test coverage using Vitest and React Testing Library:
+
+- **43 tests** across 7 test files
+- **Component testing** for all major UI components
+- **User interaction testing** with userEvent
+- **Mocking** for Ably services and external dependencies
+- **TypeScript support** with proper type checking in tests
+
+### Running Tests
+
+```bash
+# Run tests in watch mode
+npm test
+
+# Run tests once (CI mode)
+npm run test:run
+
+# Run tests with UI
+npm run test:ui
+```
+
 ## Implementation Notes
 
 - React 19 with the modern compiler-ready JSX runtime
@@ -106,6 +137,7 @@ For detailed Ably setup information, see [ABLY_SETUP.md](./ABLY_SETUP.md).
 - SCSS modules for component-scoped styling with shared variables in `src/scss_variables/`
 - Form state managed with React hooks (`useState`, `useMemo`, `useCallback`, `useEffect`)
 - Role-based form editing with different capabilities for internal vs external users
+- Comprehensive test suite with Vitest and React Testing Library
 
 ## Dependencies
 
@@ -115,15 +147,19 @@ For detailed Ably setup information, see [ABLY_SETUP.md](./ABLY_SETUP.md).
 - **Material UI** - Accessible UI components and theming
 - **Ably** - Real-time messaging and communication
 - **SCSS** - Enhanced CSS with variables and nesting
+- **Vitest** - Fast unit testing framework
+- **React Testing Library** - Simple and complete testing utilities
+- **Jest DOM** - Custom Jest matchers for DOM testing
 
 ## Next Steps
 
 - Add data persistence (e.g., API integration or local storage)
 - Implement user authentication and authorization
-- Layer in automated tests with Vitest and React Testing Library
 - Add request history and tracking features
 - Implement file uploads for deliverables
 - Add email notifications as a fallback
+- Expand test coverage for edge cases and error handling
+- Add integration tests for the complete user workflow
 
 ## License
 

@@ -4,7 +4,7 @@ import OrderForm from './order_form'
 
 // Mock the child components
 vi.mock('./components/notifications/notifications', () => ({
-  default: ({ role, onNotificationClick }: { role: string; onNotificationClick: (data: any) => void }) => (
+  default: ({ role }: { role: string; onNotificationClick: (data: any) => void }) => (
     <div data-testid="notifications" data-role={role}>
       Notifications Component
     </div>
@@ -38,7 +38,6 @@ describe('OrderForm', () => {
   })
 
   it('handles notification click by loading data into form', () => {
-    const mockData = { id: '123', requestTitle: 'Test Request' }
     render(<OrderForm role="internal" />)
     
     const notifications = screen.getByTestId('notifications')

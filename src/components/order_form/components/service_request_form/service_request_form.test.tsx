@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import userEvent from '@testing-library/user-event'
 import ServiceRequestForm from './service_request_form'
@@ -13,7 +13,7 @@ vi.mock('../../../../services/ablyService', () => ({
 
 // Mock the DeliverablesAndNotes component
 vi.mock('../deliverables_and_notes/deliverables_and_notes', () => ({
-  default: ({ formData, onFormDataChange, role }: any) => (
+  default: ({ onFormDataChange }: any) => (
     <div data-testid="deliverables-notes">
       <input 
         data-testid="deliverables-input"
@@ -30,10 +30,11 @@ vi.mock('../deliverables_and_notes/deliverables_and_notes', () => ({
 }))
 
 describe('ServiceRequestForm', () => {
-  const user = userEvent.setup()
+  let user: ReturnType<typeof userEvent.setup>
 
   beforeEach(() => {
     vi.clearAllMocks()
+    user = userEvent.setup()
   })
 
   it('renders form for internal user', () => {
