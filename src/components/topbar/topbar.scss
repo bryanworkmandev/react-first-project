@@ -3,7 +3,7 @@
 .topbar {
     background-color: $crawford-blue;
     width: 100svw;
-    height: 4rem;
+    height: 5rem;
     border-bottom: 1px solid $secondary-bg;
     display: flex;
     align-items: center;
@@ -58,5 +58,11 @@
             outline: 2px solid $background-color;
             outline-offset: 2px;
         }
+    }
+}
+
+@media (max-width: 768px) {
+    .topbar__center {
+        font-size: 0.8rem;
     }
 }

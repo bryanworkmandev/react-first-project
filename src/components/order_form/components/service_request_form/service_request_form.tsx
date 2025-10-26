@@ -22,7 +22,7 @@ import DeliverablesAndNotes from "../deliverables_and_notes/deliverables_and_not
 import { ablyService } from "../../../../services/ablyService";
 import type { ServiceRequestData } from "../../../../services/ablyService";
 
-function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
+function ServiceRequestForm({ role, loadedData, showActions = true }: OrderFormProps) {
   const [formData, setFormData] = useState<FormData>(() => getInitialFormState(role));
   const [editableFields, setEditableFields] = useState(() => getEditableFields(role));
 
@@ -144,19 +144,19 @@ function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
   };
 
   return (
-    <div className="order-form">
-      <div className="order-form__card" role="region" aria-live="polite">
-        <header className="order-form__header">
-          <h1 className="order-form__title">{getFormTitle()}</h1>
-          <p className="order-form__description">
+    <div className="service-request-form">
+      <div className="service-request-form__card" role="region" aria-live="polite">
+        <header className="service-request-form__header">
+          <h1 className="service-request-form__title">{getFormTitle()}</h1>
+          <p className="service-request-form__description">
             {getFormDescription()}
           </p>
         </header>
-        <form className="order-form__form" onSubmit={handleSubmit}>
-          <fieldset className="order-form__fieldset">
-            <legend className="order-form__legend">Request Summary</legend>
-            <div className="order-form__fields">
-              <div className="order-form__field order-form__field--span">
+        <form className="service-request-form__form" onSubmit={handleSubmit}>
+          <fieldset className="service-request-form__fieldset">
+            <legend className="service-request-form__legend">Request Summary</legend>
+            <div className="service-request-form__fields">
+              <div className="service-request-form__field service-request-form__field--span">
                 <TextField
                   id="requestTitle"
                   name="requestTitle"
@@ -186,7 +186,7 @@ function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
                 />
               </div>
 
-              <div className="order-form__field">
+              <div className="service-request-form__field">
                 <TextField
                   select
                   id="serviceType"
@@ -205,7 +205,7 @@ function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
                 </TextField>
               </div>
 
-              <div className="order-form__field">
+              <div className="service-request-form__field">
                 <TextField
                   select
                   id="priority"
@@ -224,7 +224,7 @@ function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
                 </TextField>
               </div>
 
-              <div className="order-form__field">
+              <div className="service-request-form__field">
                 <TextField
                   id="clientAccount"
                   name="clientAccount"
@@ -256,10 +256,10 @@ function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
             </div>
           </fieldset>
 
-          <fieldset className="order-form__fieldset">
-            <legend className="order-form__legend">Location</legend>
-            <div className="order-form__fields order-form__fields--address">
-              <div className="order-form__field order-form__field--span">
+          <fieldset className="service-request-form__fieldset">
+            <legend className="service-request-form__legend">Location</legend>
+            <div className="service-request-form__fields service-request-form__fields--address">
+              <div className="service-request-form__field service-request-form__field--span">
                 <TextField
                   id="addressLine1"
                   name="addressLine1"
@@ -289,7 +289,7 @@ function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
                 />
               </div>
 
-              <div className="order-form__field">
+              <div className="service-request-form__field">
                 <TextField
                   id="city"
                   name="city"
@@ -319,7 +319,7 @@ function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
                 />
               </div>
 
-              <div className="order-form__field">
+              <div className="service-request-form__field">
                 <TextField
                   select
                   id="state"
@@ -340,7 +340,7 @@ function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
                 </TextField>
               </div>
 
-              <div className="order-form__field">
+              <div className="service-request-form__field">
                 <TextField
                   id="postalCode"
                   name="postalCode"
@@ -373,10 +373,10 @@ function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
             </div>
           </fieldset>
 
-          <fieldset className="order-form__fieldset">
-            <legend className="order-form__legend">Contact & Scheduling</legend>
-            <div className="order-form__fields">
-              <div className="order-form__field">
+          <fieldset className="service-request-form__fieldset">
+            <legend className="service-request-form__legend">Contact & Scheduling</legend>
+            <div className="service-request-form__fields">
+              <div className="service-request-form__field">
                 <TextField
                   id="contactName"
                   name="contactName"
@@ -406,7 +406,7 @@ function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
                 />
               </div>
 
-              <div className="order-form__field">
+              <div className="service-request-form__field">
                 <TextField
                   id="contactPhone"
                   name="contactPhone"
@@ -437,7 +437,7 @@ function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
                 />
               </div>
 
-              <div className="order-form__field">
+              <div className="service-request-form__field">
                 <TextField
                   id="preferredDate"
                   name="preferredDate"
@@ -452,7 +452,7 @@ function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
                 />
               </div>
 
-              <div className="order-form__field">
+              <div className="service-request-form__field">
                 <TextField
                   select
                   id="availabilityWindow"
@@ -479,19 +479,21 @@ function ServiceRequestForm({ role, loadedData }: OrderFormProps) {
             role={role}
           />
 
-          <div className="order-form__actions">
-            <Button type="submit" className="order-form__button" variant="contained">
-              {role === "internal" ? "Submit Service Request" : "Complete Service Request"}
-            </Button>
-            <Button
-              type="button"
-              className="order-form__button order-form__button--secondary"
-              variant="outlined"
-              onClick={handleReset}
-            >
-              Reset form
-            </Button>
-          </div>
+          {showActions && (
+            <div className="service-request-form__actions">
+              <Button type="submit" className="service-request-form__button" variant="contained">
+                {role === "internal" ? "Submit Service Request" : "Complete Service Request"}
+              </Button>
+              <Button
+                type="button"
+                className="service-request-form__button service-request-form__button--secondary"
+                variant="outlined"
+                onClick={handleReset}
+              >
+                Reset form
+              </Button>
+            </div>
+          )}
         </form>
       </div>
     </div>

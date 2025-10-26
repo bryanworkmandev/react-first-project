@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Alert, Snackbar, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { ablyService } from '../../../../services/ablyService';
 import type { ServiceRequestData, ServiceRequestMessage, ServiceCompletionMessage } from '../../../../services/ablyService';
+import ServiceRequestForm from '../service_request_form/service_request_form';
 import './notifications.scss';
 
 interface Notification {
@@ -110,6 +111,12 @@ function Notifications({ role, onNotificationClick }: NotificationsProps) {
           </Button>
         </>
       );
+    } else if (currentNotification?.type === 'completed_request') {
+      return (
+        <Button color="inherit" size="small" onClick={handleViewDetails}>
+          View Form
+        </Button>
+      );
     }
     return null;
   };
@@ -132,53 +139,28 @@ function Notifications({ role, onNotificationClick }: NotificationsProps) {
         </Alert>
       </Snackbar>
 
-      <Dialog open={detailDialogOpen} onClose={handleCloseDialog} maxWidth="md" fullWidth>
+      <Dialog open={detailDialogOpen} onClose={handleCloseDialog} maxWidth="lg" fullWidth>
         <DialogTitle>
-          Service Request Details
+          {currentNotification?.type === 'completed_request' ? 'Completed Service Request' : 'Service Request Details'}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ padding: 0 }}>
           {currentNotification && (
-            <div className="notification-details">
-              <div className="notification-details__section">
-                <h3>Title</h3>
-                <p>{currentNotification.data.requestTitle}</p>
-              </div>
-              <div className="notification-details__section">
-                <h3>Service Type</h3>
-                <p>{currentNotification.data.serviceType}</p>
-              </div>
-              <div className="notification-details__section">
-                <h3>Priority</h3>
-                <p>{currentNotification.data.priority}</p>
-              </div>
-              <div className="notification-details__section">
-                <h3>Address</h3>
-                <p>
-                  {currentNotification.data.addressLine1}<br />
-                  {currentNotification.data.city}, {currentNotification.data.state} {currentNotification.data.postalCode}
-                </p>
-              </div>
-              <div className="notification-details__section">
-                <h3>Contact</h3>
-                <p>
-                  {currentNotification.data.contactName}<br />
-                  {currentNotification.data.contactPhone}
-                </p>
-              </div>
-              {currentNotification.data.notes && (
-                <div className="notification-details__section">
-                  <h3>Notes</h3>
-                  <p>{currentNotification.data.notes}</p>
-                </div>
-              )}
+            <div className="notification-form-container">
+              <ServiceRequestForm 
+                role="internal" 
+                loadedData={currentNotification.data}
+                showActions={false}
+              />
             </div>
           )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Close</Button>
-          <Button onClick={handleOpenForm} variant="contained" color="primary">
-            Open in Form
-          </Button>
+          {role === 'external' && (
+            <Button onClick={handleOpenForm} variant="contained" color="primary">
+              Open in Main Form
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </>

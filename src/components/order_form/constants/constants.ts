@@ -1,6 +1,7 @@
 export type OrderFormProps = {
     role: string;
     loadedData?: any | null;
+    showActions?: boolean;
 };
 
 export type InternalFormData = {
@@ -136,7 +137,7 @@ export const getInitialInternalFormState = (): InternalFormData => ({
     contactPhone: "",
     preferredDate: "",
     availabilityWindow: "business_hours",
-    requiredDeliverables: ["exterior_photos", "damage_assessment"],
+    requiredDeliverables: [],
     notes: "",
 });
 
@@ -161,14 +162,14 @@ export const getInitialFormState = (role: string): FormData => {
     if (role === "external") {
         return {
             ...baseState,
-            clientAccount: "External Client Account", // Pre-filled for external users
-            requiredDeliverables: ["exterior_photos"], // Limited options for external users
+            clientAccount: "External Client Account",
+            requiredDeliverables: [],
         };
     }
 
     return {
         ...baseState,
-        requiredDeliverables: ["exterior_photos", "damage_assessment"], // Full options for internal users
+        requiredDeliverables: [],
     };
 };
 
