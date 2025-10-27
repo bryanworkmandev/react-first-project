@@ -60,6 +60,45 @@
       box-shadow: none;
       border: 1px solid #e2e8f0;
       margin: 0;
+      width: 100% !important; // Override the fixed width for dialog display
+      max-width: 100% !important; // Ensure it doesn't exceed dialog width
+    }
+    
+    // Force all fieldsets to be the same width in dialog
+    &__fieldset {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      min-width: 0 !important; // Prevent flex items from growing beyond container
+    }
+    
+    // Ensure fields grid is single column in dialog
+    &__fields {
+      grid-template-columns: 1fr !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+    }
+    
+    // Ensure address fields are also single column
+    &__fields--address {
+      grid-template-columns: 1fr !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+    }
+    
+    // Force all fields to respect container width
+    &__field {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      
+      &--span {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+      }
     }
   }
 }
